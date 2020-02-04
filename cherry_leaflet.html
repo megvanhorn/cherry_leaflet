@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>My First Leaflet Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+ integrity="sha512-
+puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrD
+h+drA=="
+ crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+ integrity="sha512-
+QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw
+5lwrg=="
+ crossorigin=""></script>
+ <script src = "/Users/megbvh/Desktop/GEOG_456/leaflet/leaflet_tutorial/data/old_well_4326.geojson"></script>
+    </head>
+    <body>
+        This is not as hard as I thought.
+    </body>
+    <div id="mapid"></div>
+    <style>
+        #mapid{ width: 900px; height: 500px;}
+    </style>
+    <script>
+        var map = L.map('mapid').setView([35.91, -79.05], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a> href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([35.911271, -79.049807]).addTo(map)
+        .bindPopup('HELLO I am at the coolest classroom on campus, Carolina Hall 322')
+        .openPopup();
+        L.geoJSON(uncwell).addTo(map)
+        var uncIcon = L.icon({ // notice the L.icon which is a Leaflet object with properties
+        iconUrl: 'https://identity.unc.edu/files/2014/01/Old_Well_Graphic_twitter.jpg',
+        // this points to a jpg image obtained from the internet
+        iconSize: [50,50], // size of the icon
+        popupAnchor: [0,0] // where the icon is located relative to the lat lon of the point.
+        });
+        //YOU COULD CHANGE the iconURL, iconSize and popupAnchor to see how the map changes
+        // create an HTML variable that will pop up with a UNC Well photo
+        var customPopup = "UNC Well<br/><img src='https://static1.squarespace.com/static/57d17e77b8a79bfa4e31641d/t/58a22fd0bebafb516ad2404a/1487024089479/unc+well.png?format=1500w' width='100px'/>";
+        // YOU COULD CHANGE the https link to another picture.
+        // YOU COULD CHANGE the 100px to other values like 50px or 400px to see what happens
+        L.geoJSON(uncwell, {
+        pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {icon: uncIcon});}})
+        .bindPopup(customPopup)
+        .addTo(map); 
+    </script>
+    
+</html>
